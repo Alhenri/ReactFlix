@@ -2,7 +2,8 @@ import React from 'react'; //Usada pra fazer os componentes
 import ReactDOM from 'react-dom'; //Usada pra fazer a renderização da página
 import './index.css';
 import Home from './Pages/Home';
-import CadastroVideo from './Pages/cadastro/video/index'
+import CadastroVideo from './Pages/cadastro/Video/index'
+import CadastroCategoria from './Pages/cadastro/Categoria/index'
 // npm i react-router-dom -> é responsável por fazer a administração das rotas
 // tirando a necessidade de haver um reload nas paginas (single-page-aplication)
 
@@ -26,6 +27,7 @@ ReactDOM.render(
     <Switch>
       <Route path='/' component={Home} exact />
       <Route path='/Cadastro/Video' component={CadastroVideo} />
+      <Route path='/Cadastro/Categoria' component={CadastroCategoria} />
       <Route component={NotFound} />
     </Switch>
   </BrowserRouter>,

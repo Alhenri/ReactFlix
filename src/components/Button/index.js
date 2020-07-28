@@ -1,5 +1,8 @@
 import styled from "styled-components" //É usado pra criar componentes React com css
 
+// Se quiser colocar o 'Link' como componente padrão invés de 'a' ou 'button'
+// usasse 'styled(Link)' ao invés de 'styled.a'
+
 const Button = styled.a`
     color: var(--white);
     border: 1px solid var(--white);
@@ -17,7 +20,18 @@ const Button = styled.a`
 
     &:hover,
     &:focus {
-    opacity: .5;
+    opacity: .5;}
+
+    @media (max-width: 800px) {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--primary);
+      border-radius: 0;
+      border: 0;
+      text-align: center;
+    }
 `;
 
 export default Button;
