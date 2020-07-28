@@ -1,4 +1,4 @@
-import styled from "styled-components" //É usado pra criar styles css no javascript
+import styled from "styled-components" //É usado pra criar componentes React com css
 
 const Button = styled.a`
     color: var(--white);
