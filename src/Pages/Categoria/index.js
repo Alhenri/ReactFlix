@@ -1,5 +1,7 @@
 /* eslint-disable linebreak-style */
-import React, { useState } from 'react';
+/* eslint-disable function-paren-newline */
+/* eslint-disable implicit-arrow-linebreak */
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PageDefault from '../../components/PageDefault';
 import FormField from '../../components/FormField';
@@ -44,6 +46,21 @@ function CadastroCategoria() {
     );
   }
 
+  // Essa função recebe como primeiro paramtro uma função
+  // No segundo parametro ela recebe em quais condições ela devera executar
+  // no [] vazio ela so executa quando carrega
+  useEffect(() => {
+    // Pode fazer esses passos de baixo usando async e await
+    const URL = 'http://localhost:8080/categorias';
+    fetch(URL).then(
+      (resposta) => resposta.json()).then(
+      (respostaJson) => {
+        setCategorias([
+          ...respostaJson,
+        ]);
+      });
+  }, []);
+
   return (
     <PageDefault>
       <h1>
@@ -87,6 +104,13 @@ function CadastroCategoria() {
         />
 
         <Button>Cadastrar</Button>
+
+        {categorias.length === 0 && (
+          <div>
+            Loading...
+          </div>
+        )}
+
       </form>
 
       <ul>
