@@ -3,7 +3,7 @@ import styled from "styled-components" //É usado pra criar componentes React co
 // Se quiser colocar o 'Link' como componente padrão invés de 'a' ou 'button'
 // usasse 'styled(Link)' ao invés de 'styled.a'
 
-const Button = styled.a`
+const Button = styled.button`
     color: var(--white);
     border: 1px solid var(--white);
     box-sizing: border-box;
@@ -17,6 +17,7 @@ const Button = styled.a`
     text-decoration: none;
     display: inline-block;
     transition: opacity .3s;
+    background-color: var(--black);
 
     &:hover,
     &:focus {
