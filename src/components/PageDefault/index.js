@@ -1,7 +1,7 @@
 import React from 'react'
 import Menu from '../Menu/index'
 import Footer from '../Footer/index'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const Main = styled.main`
     background-color: var(--black);
@@ -11,14 +11,17 @@ const Main = styled.main`
     padding-left: 5%;
     padding-right:5%;
 
+    ${({ paddingAll }) => css`
+        padding: ${paddingAll};
+    `}
 `
 
 // s argumentos passados entre {} equivale ao props.argumento, é como uma abertura do objeto
-function PageDefault({ children }){
+function PageDefault({ children, paddingAll }){
     return(
         <>
             <Menu />
-                <Main>
+                <Main paddingAll={paddingAll}>
                     {children}
                 </Main>
             <Footer />

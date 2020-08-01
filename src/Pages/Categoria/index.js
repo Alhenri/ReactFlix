@@ -6,52 +6,34 @@ import { Link } from 'react-router-dom';
 import PageDefault from '../../components/PageDefault';
 import FormField from '../../components/FormField';
 import Button from '../../components/Button';
+import useForm from '../../hooks/useForm'
+
 
 function CadastroCategoria() {
-  // Essa const guarda todos os objetos criados em cada submit
-  const [categorias, setCategorias] = useState([]);
-
+  
   const valoresIniciais = {
-    nome: '',
+    titulo: '',
     descricao: '',
     cor: '',
   };
+  
+  const { handleChange, values, clearForm } = useForm(valoresIniciais)
 
-  // essa const abaixo guarda os valores das variaveis
-  const [values, setValues] = useState(valoresIniciais);
-  // O useState retorna a string colocada e uma função, ele
-  // ta sendo usado como alteração dinâmica da informação
+  // Essa const guarda todos os objetos criados em cada submit
+  const [categorias, setCategorias] = useState([]);
 
   // Os [] na declaração da variável 'abre' o objeto retornado pelo useState
-
-  function setValue(chave, valor) {
-    // chave: nome, descrição e cor
-    setValues({
-      ...values,
-      [chave]: valor, // recurso do js que deixa a chave dinamica
-    });
-  }
-
-  // Essa função abaixo é responsável por mudar o valor das variaveis
-  function handleChange(infoOnChange) {
-    // infoOnChange é um objeto que retornar informações sobre a chamada da função
-    // target é o alvo da ação
-    // setNomeDaCategoria(infoOnChange.target.value)
-    // O valor não é renderizado normalmente porque o react reescreve a pagina
-    // com o valor inicial
-
-    setValue(
-      infoOnChange.target.getAttribute('name'),
-      infoOnChange.target.value,
-    );
-  }
 
   // Essa função recebe como primeiro paramtro uma função
   // No segundo parametro ela recebe em quais condições ela devera executar
   // no [] vazio ela so executa quando carrega
   useEffect(() => {
+    // Muda o backend dependendo de onde tiver rodando
+    const URL = window.location.hostname.includes('localhost')
+      ? 'http://localhost:8080/categorias'
+      : 'https://reactflix-ahssf.herokuapp.com/categorias';
+
     // Pode fazer esses passos de baixo usando async e await
-    const URL = 'http://localhost:8080/categorias';
     fetch(URL).then(
       (resposta) => resposta.json()).then(
       (respostaJson) => {
@@ -65,7 +47,7 @@ function CadastroCategoria() {
     <PageDefault>
       <h1>
         Cadastro de categoria:
-        {values.nome}
+        {values.titulo}
       </h1>
 
       <form onSubmit={function handleSubmit(infoOnSubmit) {
@@ -74,7 +56,9 @@ function CadastroCategoria() {
           ...categorias, // ...: Coloca tudo que ele ja pegou e manda continuar salvo
           values,
         ]);
-        setValues(valoresIniciais);
+
+        console.log(values)
+        clearForm(valoresIniciais);
       }}
       >
         {/* State: Contém dados  */}
@@ -82,8 +66,8 @@ function CadastroCategoria() {
         <FormField
           label="Nome da categoria: "
           type="text"
-          name="nome"
-          value={values.nome}
+          name="titulo"
+          value={values.titulo}
           onChange={handleChange}
         />
 
@@ -117,8 +101,8 @@ function CadastroCategoria() {
         {categorias.map((categoria) => // Essa função tem o primeiro parametro que é
         // o conteudo da lista e o segundo que é o indice
           (
-            <li key={`${categoria.nome}`}>
-              {categoria.nome}
+            <li key={`${categoria.titulo}`}>
+              {categoria.titulo}
             </li>
           ),
           // Precisa do parametro key pra fazer o li
